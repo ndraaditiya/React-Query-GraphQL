@@ -1,7 +1,6 @@
 import { useQuery, } from '@tanstack/react-query'
 import { gql, request } from "graphql-request";
-
-const hygraphApi = process.env.hygraphApiUrl
+import { hygraphApi } from '../config/api';
 
 export const useGetPosts = () => {
   const { data, isLoading } = useQuery({
