@@ -7,15 +7,12 @@ export const useGetPosts = () => {
     queryKey: ['posts'],
     queryFn: async () => {
       const res = await request(hygraphApi, gql`
-        query MyQuery {
+        query getPosts {
           posts {
             title
+            excerpt
             featuredImage {
               url
-            }
-            categories {
-              id
-              name
             }
             author {
               id
@@ -32,6 +29,40 @@ export const useGetPosts = () => {
       return res
     },
     select: (res) => res.posts
+  })
+  return { data, isLoading }
+}
+
+export const useGetPostDetail = (slug) => {
+  const { data, isLoading } = useQuery({
+    queryKey: ['post', slug],
+    queryFn: async () => {
+      const res = request(hygraphApi, gql`
+        query getPostDetail($slug: String!) {
+          post(where: {slug: $slug}) {
+            createdAt
+            title
+            author {
+              name
+              photo {
+                url
+              }
+            }
+            featuredImage {
+              url
+            }
+            categories {
+              name
+            }
+            content {
+              raw
+            }
+          }
+        }
+      `, { slug: slug })
+      return res
+    },
+    select: (res) => res.post
   })
   return { data, isLoading }
 }

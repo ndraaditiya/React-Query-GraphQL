@@ -1,17 +1,20 @@
+import React, { lazy, Suspense } from 'react'
+import { Routes, Route } from 'react-router-dom'
 import './App.css'
-import { useGetPosts } from './services'
+
+const Posts = lazy(() => import('./pages/Posts'))
+const PostDetail = lazy(() => import('./pages/PostDetail'))
 
 function App() {
 
-  const { data, isLoading } = useGetPosts()
-
-  if (isLoading) return 'Loading..'
-
-  console.log(data)
-
   return (
     <div className="App">
-      LAnding
+      <Suspense fallback={'Loading..'}>
+        <Routes>
+          <Route path='/' element={<Posts />} />
+          <Route path='/:slug' element={<PostDetail />} />
+        </Routes>
+      </Suspense>
     </div>
   )
 }

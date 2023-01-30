@@ -1,41 +1,83 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+.App {
+  padding: 20px;
+}
+
+.App h2 {
   text-align: center;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.thumb {
+  max-width: 500px;
+  /* border-radius: 20px; */
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+.container {
+  padding: 20px 15px;
+  box-shadow: rgb(0 0 0 / 5%) 0rem .85rem 1.1rem 0rem;
+  border-radius: 20px;
+}
+
+.author {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+.author-photo {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+.date-posted {
+  font-size: .9em;
+  margin-left: 15px;
+}
+
+.container .excerpt {
+  text-align: center;
+  font-size: .9em;
+  overflow: hidden;
+  max-width: 500px;
+  white-space: wrap;
+  text-overflow: ellipsis;
+}
+
+.container .action {
+  display: flex;
+  justify-content: center;
+}
+
+.thumb-detail {
+  text-align: center;
+  max-width: 700px;
+  box-shadow: rgb(0 0 0 / 5%) 0rem .85rem 1.1rem 0rem;
+}
+
+.thumb-detail-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.post-detail {
+  max-width: 700px;
+}
+
+.back-icon {
+  margin-right: 20px;
+  cursor: pointer;
+}
+
+@media (max-width: 500px) {
+  .container .excerpt {
+    max-width: 250px;
+    white-space: nowrap;
   }
-  to {
-    transform: rotate(360deg);
+
+  .thumb,
+  .thumb-detail {
+    max-width: 250px;
   }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
 }
