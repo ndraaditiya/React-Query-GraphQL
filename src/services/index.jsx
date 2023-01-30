@@ -56,7 +56,7 @@ export const useGetPostDetail = (slug) => {
             }
           }
         }
-      `, { slug: slug })
+      `, { slug })
       return res
     },
     select: (res) => res.post
