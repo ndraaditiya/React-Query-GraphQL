@@ -51,9 +51,6 @@ export const useGetPostDetail = (slug) => {
             featuredImage {
               url
             }
-            categories {
-              name
-            }
             content {
               raw
             }
