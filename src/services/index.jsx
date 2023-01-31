@@ -5,27 +5,29 @@ import { hygraphApi } from '../config/api';
 export const useGetPosts = () => {
   const { data, isLoading } = useQuery({
     queryKey: ['posts'],
-    queryFn: async () => {
-      const res = await request(hygraphApi, gql`
-        query getPosts {
-          posts {
-            title
-            excerpt
-            featuredImage {
-              url
-            }
-            author {
-              id
-              name
-              photo {
+    queryFn: async ({ signal }) => {
+      const res = await request(hygraphApi, {
+        document: gql`
+          query getPosts {
+            posts {
+              title
+              excerpt
+              featuredImage {
                 url
               }
+              author {
+                id
+                name
+                photo {
+                  url
+                }
+              }
+              createdAt
+              slug
             }
-            createdAt
-            slug
           }
-        }
-      `)
+        `, signal
+      })
       return res
     },
     select: (res) => res.posts
@@ -36,27 +38,29 @@ export const useGetPosts = () => {
 export const useGetPostDetail = (slug) => {
   const { data, isLoading } = useQuery({
     queryKey: ['post', slug],
-    queryFn: async () => {
-      const res = request(hygraphApi, gql`
-        query getPostDetail($slug: String!) {
-          post(where: {slug: $slug}) {
-            createdAt
-            title
-            author {
-              name
-              photo {
+    queryFn: async ({ signal }) => {
+      const res = request(hygraphApi, {
+        document: gql`
+          query getPostDetail($slug: String!) {
+            post(where: {slug: $slug}) {
+              createdAt
+              title
+              author {
+                name
+                photo {
+                  url
+                }
+              }
+              featuredImage {
                 url
               }
-            }
-            featuredImage {
-              url
-            }
-            content {
-              raw
+              content {
+                raw
+              }
             }
           }
-        }
-      `, { slug })
+        `, signal
+      }, { slug })
       return res
     },
     select: (res) => res.post
