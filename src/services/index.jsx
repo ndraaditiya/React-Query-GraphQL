@@ -1,12 +1,14 @@
 import { useQuery, } from '@tanstack/react-query'
-import { gql, request } from "graphql-request";
+import { gql, request, GraphQLClient } from "graphql-request";
 import { hygraphApi } from '../config/api';
+
+const client = new GraphQLClient(hygraphApi)
 
 export const useGetPosts = () => {
   const { data, isLoading } = useQuery({
     queryKey: ['posts'],
     queryFn: async ({ signal }) => {
-      const res = await request(hygraphApi, {
+      const res = await client.request({
         document: gql`
           query getPosts {
             posts {
@@ -39,7 +41,7 @@ export const useGetPostDetail = (slug) => {
   const { data, isLoading } = useQuery({
     queryKey: ['post', slug],
     queryFn: async ({ signal }) => {
-      const res = request(hygraphApi, {
+      const res = client.request({
         document: gql`
           query getPostDetail($slug: String!) {
             post(where: {slug: $slug}) {
