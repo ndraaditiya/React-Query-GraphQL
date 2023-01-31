@@ -1,13 +1,15 @@
-import { Navigate, useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { Fragment } from 'react'
 import { useGetPostDetail } from '../services'
 
 const PostDetail = () => {
   const navigate = useNavigate()
   const { slug } = useParams()
-  const { data: post, isLoading } = useGetPostDetail(slug)
+  const { data: post, isLoading, isError, error } = useGetPostDetail(slug)
 
   if (isLoading) return 'Loading..'
+
+  if (isError) return <p>{error}</p>
 
   const getContentFragment = (index, text, obj, type) => {
     let modifiedText = text
@@ -29,19 +31,19 @@ const PostDetail = () => {
     switch (type) {
       case 'heading-three':
         return (
-          <h3 key={index} className='text-xl font-semibold mb-4'>
+          <h3 key={index}>
             {modifiedText.map((item, i) => <Fragment key={i}>{item}</Fragment>)}
           </h3>
         )
       case 'paragraph':
         return (
-          <p key={index} className='mb-8'>
+          <p key={index}>
             {modifiedText.map((item, i) => <Fragment key={i}>{item}</Fragment>)}
           </p>
         )
       case 'heading-four':
         return (
-          <h4 key={index} className='text-md font-semibold mb-4'>
+          <h4 key={index}>
             {modifiedText.map((item, i) => <Fragment key={i}>{item}</Fragment>)}
           </h4>
         )
@@ -54,7 +56,7 @@ const PostDetail = () => {
     <div className='post-detail'>
       <h2>
         <span className='back-icon' onClick={() => navigate('/')}>
-          <i class="fa-solid fa-circle-chevron-left"></i>
+          <i className="fa-solid fa-circle-chevron-left"></i>
         </span>
         {post?.title}
       </h2>
@@ -64,7 +66,9 @@ const PostDetail = () => {
       <div className='author'>
         <img src={post?.author?.photo?.url} className='author-photo' />
         <span>{post?.author?.name}</span>
-        <span className='date-posted'>{new Date(post?.createdAt).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+        <span className='date-posted'>
+          {new Date(post?.createdAt).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })}
+        </span>
       </div>
       {post?.content?.raw.children.map((typeObj, index) => {
         const children = typeObj.children.map((item, itemIndex) => getContentFragment(itemIndex, item?.text, item))

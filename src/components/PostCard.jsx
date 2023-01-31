@@ -18,7 +18,9 @@ const PostCard = ({
         <div className='author'>
           <img src={authorPhoto} className='author-photo' />
           <span>{authorName}</span>
-          <span className='date-posted'>{new Date(createdAt).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+          <span className='date-posted'>
+            {new Date(createdAt).toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' })}
+          </span>
         </div>
         <div className='excerpt'>
           <p>{excerpt}</p>

@@ -3,9 +3,11 @@ import PostCard from '../components/PostCard'
 import { useGetPosts } from '../services'
 
 const Posts = () => {
-  const { data, isLoading } = useGetPosts()
+  const { data, isLoading, isError, error } = useGetPosts()
 
   if (isLoading) return 'Loading..'
+
+  if (isError) return <p>{error}</p>
 
   return (
     <>
