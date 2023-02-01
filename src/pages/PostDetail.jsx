@@ -1,11 +1,15 @@
 import { useNavigate, useParams } from 'react-router-dom'
-import { Fragment } from 'react'
+import { Fragment, useEffect } from 'react'
 import { useGetPostDetail } from '../services'
 
 const PostDetail = () => {
   const navigate = useNavigate()
   const { slug } = useParams()
   const { data: post, isLoading, isError, error } = useGetPostDetail(slug)
+
+  useEffect(() => {
+    window.scroll(0, 0)
+  }, [])
 
   if (isLoading) return 'Loading..'
 
