@@ -5,4 +5,4 @@ I created this simple Web Blog with GrpahQL, React-Query and React Router Dom. I
 
 With this project, hope you will understand the workflow
 
-You can see the hosted project on: **https://react-query-graph-ql.vercel.app/**
+You can see the hosted project on: **https://react-query-graph-ql.netlify.app/**
